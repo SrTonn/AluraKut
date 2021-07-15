@@ -2,17 +2,29 @@ import React, { useEffect, useState } from 'react'
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
-import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
+import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 
 function ProfileSidebar(propriedades) {
   const { githubUser } = propriedades
   return (
-    <Box>
+    <Box as="aside">
       <img
         src={`https://github.com/${githubUser}.png`}
         style={{ borderRadius: '8px' }}
         alt="github profile"
       />
+      <hr />
+
+      <p>
+        <a className="" href={`https://github.com/${githubUser}`}>
+          @
+          {githubUser}
+        </a>
+      </p>
+
+      <hr />
+
+      <AlurakutProfileSidebarMenuDefault />
     </Box>
   )
 }
