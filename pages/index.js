@@ -91,18 +91,18 @@ export default function Home() {
 
             <ul>
               {favoritePeoples
-                && favoritePeoples.map((itemAtual, i) => (i > 5 ? false : (
-                  <li key={itemAtual}>
+                && favoritePeoples.map((item, i) => (i > 5 ? false : (
+                  <li key={item}>
                     <a
-                      href={`https://github.com/${itemAtual}`}
+                      href={`https://github.com/${item}`}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <img
-                        src={`https://github.com/${itemAtual}.png`}
+                        src={`https://github.com/${item}.png`}
                         alt="img"
                       />
-                      <span>{itemAtual}</span>
+                      <span>{item}</span>
                     </a>
                   </li>
                 )))}
