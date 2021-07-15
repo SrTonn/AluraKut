@@ -18,14 +18,15 @@ function ProfileSidebar(propriedades) {
 }
 
 export default function Home() {
-  const [pessoasFavoritas, setPessoasFavoritas] = useState('')
-  const usuarioAleatorio = 'SrTonn'
+  const [favoritePeoples, setFavoritePeoples] = useState('')
+  const githubUser = 'SrTonn'
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${usuarioAleatorio}/following`)
+    fetch(`https://api.github.com/users/${githubUser}/following`)
       .then((response) => response.json())
       .then((data) => {
-        setPessoasFavoritas(data.map((item) => item.login).sort(() => Math.random() - 0.5))
+        setFavoritePeoples(data.map((item) => item.login)
+          .sort(() => Math.random() - 0.5))
       })
   }, [])
 
@@ -44,14 +45,14 @@ export default function Home() {
       <AlurakutMenu />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-          <ProfileSidebar githubUser={usuarioAleatorio} />
+          <ProfileSidebar githubUser={githubUser} />
         </div>
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
             <h1 className="title">
               Bem-vindo(a),
-              <br />
-              {usuarioAleatorio}
+              {' '}
+              {githubUser}
             </h1>
             <OrkutNostalgicIconSet
               recados={random(100)}
@@ -65,17 +66,20 @@ export default function Home() {
             />
           </Box>
         </div>
-        <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+        <div
+          className="profileRelationsArea"
+          style={{ gridArea: 'profileRelationsArea' }}
+        >
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da comunidade (
-              {pessoasFavoritas.length}
+              {favoritePeoples.length}
               )
             </h2>
 
             <ul>
-              {pessoasFavoritas
-                && pessoasFavoritas.map((itemAtual, i) => (i > 5 ? false : (
+              {favoritePeoples
+                && favoritePeoples.map((itemAtual, i) => (i > 5 ? false : (
                   <li key={itemAtual}>
                     <a
                       href={`https://github.com/${itemAtual}`}
