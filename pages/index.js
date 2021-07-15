@@ -31,6 +31,32 @@ function ProfileSidebar(propriedades) {
 
 export default function Home() {
   const [favoritePeoples, setFavoritePeoples] = useState('')
+  const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
+  const [communities, setCommunities] = useState([{
+    id: 'Eu odeio acordar cedo',
+    title: 'Eu odeio acordar cedo',
+    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+  }, {
+    id: 'Só mais 5 minutinhos',
+    title: 'Só mais 5 minutinhos',
+    image: 'https://pic1.zhimg.com/50/c9030d530ffa00e8d9431c29bd648b66_hd.jpg?source=1940ef5c',
+  }, {
+    id: 'Queria sorvete, mas era feijão',
+    title: 'Queria sorvete, mas era feijão',
+    image: 'http://1.bp.blogspot.com/_E_Skfy6CIeY/S83eZkqfohI/AAAAAAAAAqE/0W_V-2UYy38/s1600/pote_negresco.jpg',
+  }, {
+    id: 'Tocava e corria',
+    title: 'Tocava e corria',
+    image: 'https://www.pezzi.com.br/storage/images/HPGPuTqV8kJlqhqz0ZMOpi6FlElkuYtuGdnWx7VX.png',
+  }, {
+    id: 'Deus me disse: desce e arrasa!',
+    title: 'Deus me disse: desce e arrasa!',
+    image: 'http://4.bp.blogspot.com/_KtNRZTGIxtE/SsTk3hETTsI/AAAAAAAAAAc/EViMRjrgENY/s320/Deus+me+disse...jpg',
+  }, {
+    id: 'Eu abro a geladeira pra pensar',
+    title: 'Eu abro a geladeira pra pensar',
+    image: 'https://i.pinimg.com/736x/70/8e/e0/708ee0b3268da6a20ffb05fd88d272fe.jpg',
+  }])
   const githubUser = 'SrTonn'
 
   useEffect(() => {
@@ -42,6 +68,11 @@ export default function Home() {
       })
   }, [])
 
+  useEffect(() => {
+    const newCommunities = communities.sort(() => Math.random() - 0.5)
+    setCommunities([...newCommunities])
+  }, [])
+
   function random(min, max) {
     if (max === undefined) {
       // eslint-disable-next-line no-param-reassign
@@ -50,6 +81,23 @@ export default function Home() {
       min = 0
     }
     return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  function handleCreateCommunity(e) {
+    e.preventDefault()
+    const dadosDoForm = new FormData(e.target)
+
+    // console.log('Campo: ', dadosDoForm.get('title'))
+    // console.log(dadosDoForm.get('image') === '')
+
+    const community = {
+      id: new Date().toISOString(),
+      title: dadosDoForm.get('title'),
+      image: dadosDoForm.get('image') === '' ? img404 : dadosDoForm.get('image'),
+    }
+
+    const updatedCommunities = [community, ...communities]
+    setCommunities(updatedCommunities)
   }
 
   return (
@@ -77,11 +125,60 @@ export default function Home() {
               sexy={random(3)}
             />
           </Box>
+
+          <Box>
+            <h2 className="subTitle">O que você deseja fazer?</h2>
+            <form
+              onSubmit={handleCreateCommunity}
+            >
+              <div>
+                <input
+                  placeholder="Qual vai ser o nome da sua comunidade?"
+                  name="title"
+                  aria-label="Qual vai ser o nome da sua comunidade?"
+                  type="text"
+                />
+              </div>
+
+              <div>
+                <input
+                  placeholder="Cole uma URL para usarmos de capa"
+                  name="image"
+                  aria-label="Cole uma URL para usarmos de capa"
+                />
+              </div>
+              <button type="submit">
+                Criar comunidade
+              </button>
+            </form>
+          </Box>
         </div>
         <div
           className="profileRelationsArea"
           style={{ gridArea: 'profileRelationsArea' }}
         >
+          <ProfileRelationsBoxWrapper>
+            <h2 className="smallTitle">
+              Comunidades  (
+              {communities.length}
+              )
+            </h2>
+
+            <ul>
+              {communities.map((item, i) => (i > 5 ? false : (
+                <li key={item.id}>
+                  <a href={`/users/${item.title}`}>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                    />
+                    <span>{item.title}</span>
+                  </a>
+                </li>
+              )))}
+            </ul>
+          </ProfileRelationsBoxWrapper>
+
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da comunidade (
