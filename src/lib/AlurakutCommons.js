@@ -30,9 +30,9 @@ export function AlurakutMenu({ githubUser }) {
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
-        <a href="/">
+        <Link href="/">
           <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
-        </a>
+        </Link>
 
         <nav style={{ flex: 1 }}>
           {[{ name: 'Inicio', slug: '/' }, { name: 'Amigos', slug: '/amigos' }, { name: 'Comunidades', slug: '/comunidades' }].map((menuItem) => (
