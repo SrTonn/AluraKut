@@ -77,6 +77,7 @@ AlurakutMenu.Wrapper = styled.header`
     pointer-events: ${({ isMenuOpen }) => (isMenuOpen ? 'all' : 'none')};
     opacity: ${({ isMenuOpen }) => (isMenuOpen ? '1' : '0')};
     transform: ${({ isMenuOpen }) => (isMenuOpen ? 'translateY(0)' : 'translateY(calc(-100% - 48px))')};
+
     @media(min-width: 860px) {
       display: none;
     }
@@ -105,12 +106,15 @@ AlurakutMenu.Wrapper = styled.header`
 
   .container {
     background-color: #308BC5;
+    position: ${({ isMenuOpen }) => (isMenuOpen ? 'fixed' : 'relative')};
+    top: 0;
+    width: 100%;
+
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
     display: flex;
     justify-content: space-between;
-    position: relative;
     z-index: 101;
     @media(min-width: 860px) {
       justify-content: flex-start;
