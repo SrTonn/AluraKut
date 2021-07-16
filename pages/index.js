@@ -251,32 +251,12 @@ export default function Home() {
             </ul>
           </ProfileRelationsBoxWrapper>
 
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Pessoas da comunidade (
-              {favoritePeoples.length}
-              )
-            </h2>
+          <ProfileRelationsBox
+            title="Pessoas da comunidade"
+            items={[following, 'following']}
+            githubUser={githubUser}
+          />
 
-            <ul>
-              {favoritePeoples
-                && favoritePeoples.map((item, i) => (i > 5 ? false : (
-                  <li key={item}>
-                    <a
-                      href={`https://github.com/${item}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img
-                        src={`https://github.com/${item}.png`}
-                        alt="img"
-                      />
-                      <span>{item}</span>
-                    </a>
-                  </li>
-                )))}
-            </ul>
-          </ProfileRelationsBoxWrapper>
         </div>
       </MainGrid>
     </>
