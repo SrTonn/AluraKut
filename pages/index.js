@@ -127,10 +127,17 @@ export default function Home() {
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${githubUser}/following`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) return response.json()
+
+        throw new Error(response.status)
+      })
       .then((data) => {
-        setFavoritePeoples(data.map((item) => item.login)
+        setFollowing(data.map((item) => item.login)
           .sort(() => Math.random() - 0.5))
+      })
+      .catch((err) => {
+        console.error(`Erro (${err}) ao carregar ${githubUser}/following`)
       })
   }, [])
 
