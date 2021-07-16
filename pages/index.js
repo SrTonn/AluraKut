@@ -61,6 +61,22 @@ export default function Home() {
   const githubUser = 'SrTonn'
 
   useEffect(() => {
+    fetch(`https://api.github.com/users/${githubUser}/followers`)
+      .then((response) => {
+        if (response.ok) return response.json()
+
+        throw new Error(response.status)
+      })
+      .then((data) => {
+        setFollowers(data.map((item) => item.login)
+          .sort(() => Math.random() - 0.5))
+      })
+      .catch((err) => {
+        console.error(`Erro (${err}) ao carregar ${githubUser}/followers`)
+      })
+  }, [])
+
+  useEffect(() => {
     fetch(`https://api.github.com/users/${githubUser}/following`)
       .then((response) => response.json())
       .then((data) => {
