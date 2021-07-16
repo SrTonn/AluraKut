@@ -30,6 +30,54 @@ function ProfileSidebar(propriedades) {
   )
 }
 
+function ProfileRelationsBox({
+  title, items, githubUser,
+}) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+        {title}
+        {' '}
+        (
+        <a
+          href={`https://github.com/${githubUser}?tab=${items[1]}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+
+          {items[0].length}
+        </a>
+        )
+      </h2>
+
+      <ul>
+        {items[0]
+        && items[0].map((item, i) => (i > 5 ? false : (
+          <li key={item}>
+            <a
+              href={`https://github.com/${item}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src={`https://github.com/${item}.png`}
+                alt="img"
+              />
+              <span>{item}</span>
+            </a>
+          </li>
+        )))}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
+ProfileRelationsBox.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  githubUser: PropTypes.string.isRequired,
+}
+
 export default function Home() {
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
@@ -175,6 +223,12 @@ export default function Home() {
           className="profileRelationsArea"
           style={{ gridArea: 'profileRelationsArea' }}
         >
+          <ProfileRelationsBox
+            title="Seguidores"
+            items={[followers, 'followers']}
+            githubUser={githubUser}
+          />
+
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Comunidades  (
