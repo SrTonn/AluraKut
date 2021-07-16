@@ -31,7 +31,8 @@ function ProfileSidebar(propriedades) {
 }
 
 export default function Home() {
-  const [favoritePeoples, setFavoritePeoples] = useState('')
+  const [followers, setFollowers] = useState([])
+  const [following, setFollowing] = useState([])
   const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
   const [communities, setCommunities] = useState([{
     id: 'Eu odeio acordar cedo',
