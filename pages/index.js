@@ -75,7 +75,7 @@ function ProfileRelationsBox({
 
 ProfileRelationsBox.propTypes = {
   title: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  items: PropTypes.instanceOf(Array).isRequired,
   githubUser: PropTypes.string.isRequired,
 }
 
