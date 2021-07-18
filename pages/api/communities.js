@@ -2,9 +2,8 @@ import { SiteClient } from 'datocms-client'
 
 export default async function communitiesApi(req, res) {
   if (req.method === 'POST') {
-    const TOKEN = process.env.DATOCMS_API_TOKEN_FULL
+    const TOKEN = process.env.NEXT_PUBLIC_API_DATOCMS_TOKEN_FULL
     const client = new SiteClient(TOKEN)
-
     const record = await client.items.create({
       itemType: '975967', // Model ID for communities
       ...req.body,

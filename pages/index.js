@@ -128,11 +128,12 @@ export default function Home() {
         console.error(`Erro (${err}) ao carregar ${githubUser}/following`)
       })
 
+    const API_DATOCMS_TOKEN = process.env.NEXT_PUBLIC_API_DATOCMS_TOKEN
     // API GraphQL DATOCMS
     fetch('https://graphql.datocms.com/', {
       method: 'POST',
       headers: {
-        Authorization: process.env.DATOCMS_API_TOKEN,
+        Authorization: API_DATOCMS_TOKEN,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
