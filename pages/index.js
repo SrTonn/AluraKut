@@ -79,35 +79,22 @@ ProfileRelationsBox.propTypes = {
   githubUser: PropTypes.string.isRequired,
 }
 
+function random(min, max) {
+  if (max === undefined) {
+    // eslint-disable-next-line no-param-reassign
+    max = min
+    // eslint-disable-next-line no-param-reassign
+    min = 0
+  }
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 export default function Home() {
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
+  const [userStatus, setUserStatus] = useState({})
+  const [communities, setCommunities] = useState([])
   const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
-  const [communities, setCommunities] = useState([{
-    id: 'Eu odeio acordar cedo',
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
-  }, {
-    id: 'Só mais 5 minutinhos',
-    title: 'Só mais 5 minutinhos',
-    image: 'https://pic1.zhimg.com/50/c9030d530ffa00e8d9431c29bd648b66_hd.jpg?source=1940ef5c',
-  }, {
-    id: 'Queria sorvete, mas era feijão',
-    title: 'Queria sorvete, mas era feijão',
-    image: 'http://1.bp.blogspot.com/_E_Skfy6CIeY/S83eZkqfohI/AAAAAAAAAqE/0W_V-2UYy38/s1600/pote_negresco.jpg',
-  }, {
-    id: 'Tocava e corria',
-    title: 'Tocava e corria',
-    image: 'https://www.pezzi.com.br/storage/images/HPGPuTqV8kJlqhqz0ZMOpi6FlElkuYtuGdnWx7VX.png',
-  }, {
-    id: 'Deus me disse: desce e arrasa!',
-    title: 'Deus me disse: desce e arrasa!',
-    image: 'http://4.bp.blogspot.com/_KtNRZTGIxtE/SsTk3hETTsI/AAAAAAAAAAc/EViMRjrgENY/s320/Deus+me+disse...jpg',
-  }, {
-    id: 'Eu abro a geladeira pra pensar',
-    title: 'Eu abro a geladeira pra pensar',
-    image: 'https://i.pinimg.com/736x/70/8e/e0/708ee0b3268da6a20ffb05fd88d272fe.jpg',
-  }])
   const githubUser = 'SrTonn'
 
   useEffect(() => {
@@ -167,19 +154,18 @@ export default function Home() {
         setCommunities([...newCommunities])
       })
 
-    const newCommunities = communities.sort(() => Math.random() - 0.5)
-    setCommunities([...newCommunities])
-  }, [])
-
-  function random(min, max) {
-    if (max === undefined) {
-      // eslint-disable-next-line no-param-reassign
-      max = min
-      // eslint-disable-next-line no-param-reassign
-      min = 0
+    const newStatus = {
+      scraps: random(15, 65),
+      photos: random(30, 100),
+      videos: random(100),
+      fans: random(100),
+      messages: random(30, 100),
+      reliable: random(3),
+      nice: random(3),
+      sexy: random(3),
     }
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+    setUserStatus(newStatus)
+  }, [])
 
   function handleCreateCommunity(e) {
     e.preventDefault()
@@ -213,14 +199,14 @@ export default function Home() {
               {githubUser}
             </h1>
             <OrkutNostalgicIconSet
-              recados={random(100)}
-              fotos={Math.floor(random(30, 100))}
-              videos={Math.floor(random(100))}
-              fas={Math.floor(random(100))}
-              mensagens={Math.floor(random(10, 100))}
-              confiavel={random(3)}
-              legal={random(3)}
-              sexy={random(3)}
+              recados={userStatus.scraps}
+              fotos={userStatus.photos}
+              videos={userStatus.videos}
+              fas={userStatus.fans}
+              mensagens={userStatus.messages}
+              confiavel={userStatus.reliable}
+              legal={userStatus.nice}
+              sexy={userStatus.sexy}
             />
           </Box>
 
