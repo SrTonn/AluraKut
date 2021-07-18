@@ -111,6 +111,7 @@ export default function Home() {
   const githubUser = 'SrTonn'
 
   useEffect(() => {
+    // fetch followers
     fetch(`https://api.github.com/users/${githubUser}/followers`)
       .then((response) => {
         if (response.ok) return response.json()
@@ -124,9 +125,8 @@ export default function Home() {
       .catch((err) => {
         console.error(`Erro (${err}) ao carregar ${githubUser}/followers`)
       })
-  }, [])
 
-  useEffect(() => {
+    // fetch following
     fetch(`https://api.github.com/users/${githubUser}/following`)
       .then((response) => {
         if (response.ok) return response.json()
@@ -140,9 +140,33 @@ export default function Home() {
       .catch((err) => {
         console.error(`Erro (${err}) ao carregar ${githubUser}/following`)
       })
-  }, [])
 
-  useEffect(() => {
+    // API GraphQL DATOCMS
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        Authorization: process.env.DATOCMS_API_TOKEN,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query:
+        `
+      query {
+        allCommunities {
+          id
+          title
+          imageUrl
+          creatorSlug
+        }
+      }`,
+      }),
+    }).then((response) => response.json())
+      .then((data) => {
+        const newCommunities = data.data.allCommunities.sort(() => Math.random() - 0.5)
+        setCommunities([...newCommunities])
+      })
+
     const newCommunities = communities.sort(() => Math.random() - 0.5)
     setCommunities([...newCommunities])
   }, [])
