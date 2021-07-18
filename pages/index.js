@@ -17,7 +17,7 @@ function ProfileSidebar(propriedades) {
       <hr />
 
       <p>
-        <a className="" href={`https://github.com/${githubUser}`}>
+        <a className="boxLink" href={`https://github.com/${githubUser}`}>
           @
           {githubUser}
         </a>
@@ -43,6 +43,7 @@ function ProfileRelationsBox({
           href={`https://github.com/${githubUser}?tab=${items[1]}`}
           target="_blank"
           rel="noreferrer"
+          className="boxLink"
         >
 
           {items[0].length}
