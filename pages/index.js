@@ -171,17 +171,25 @@ export default function Home() {
     e.preventDefault()
     const dadosDoForm = new FormData(e.target)
 
-    // console.log('Campo: ', dadosDoForm.get('title'))
-    // console.log(dadosDoForm.get('image') === '')
-
-    const community = {
-      id: new Date().toISOString(),
+    const communityForm = {
       title: dadosDoForm.get('title'),
-      image: dadosDoForm.get('image') === '' ? img404 : dadosDoForm.get('image'),
+      imageUrl: dadosDoForm.get('image') === '' ? img404 : dadosDoForm.get('image'),
+      creatorSlug: githubUser,
     }
 
-    const updatedCommunities = [community, ...communities]
-    setCommunities(updatedCommunities)
+    fetch('/api/communities', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(communityForm),
+    })
+      .then(async (response) => {
+        const data = await response.json()
+        const community = data.record
+        const updatedCommunities = [...communities, community]
+        setCommunities(updatedCommunities)
+      })
   }
 
   return (
@@ -257,9 +265,9 @@ export default function Home() {
             <ul>
               {communities.map((item, i) => (i > 5 ? false : (
                 <li key={item.id}>
-                  <a href={`/users/${item.title}`}>
+                  <a href={`/communities/${item.id}`}>
                     <img
-                      src={item.image}
+                      src={item.imageUrl}
                       alt={item.title}
                     />
                     <span>{item.title}</span>
