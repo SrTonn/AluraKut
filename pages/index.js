@@ -260,7 +260,7 @@ export default function Home() {
           </ProfileRelationsBoxWrapper>
 
           <ProfileRelationsBox
-            title="Pessoas da comunidade"
+            title="Seguindo"
             items={[following, 'following']}
             githubUser={githubUser}
           />
