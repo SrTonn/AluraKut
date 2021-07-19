@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import nookies from 'nookies'
+import jwt from 'jsonwebtoken'
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
@@ -89,13 +91,13 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-export default function Home() {
+export default function Home(Props) {
+  const { githubUser } = Props
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
   const [userStatus, setUserStatus] = useState({})
   const [communities, setCommunities] = useState([])
   const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
-  const githubUser = 'SrTonn'
 
   useEffect(() => {
     // fetch followers
@@ -288,4 +290,31 @@ export default function Home() {
       </MainGrid>
     </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx)
+  const token = cookies.USER_TOKEN
+  const { isAuthenticated } = await fetch('https://alurakut.vercel.app/api/auth', {
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((resposta) => resposta.json())
+
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  const { githubUser } = jwt.decode(token)
+  return {
+    props: {
+      githubUser,
+    }, // will be passed to the page component as props
+  }
 }
