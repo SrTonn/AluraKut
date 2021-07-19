@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import nookies from 'nookies'
-import jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken'
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
@@ -96,7 +96,10 @@ function random(min, max) {
 }
 
 export default function Home(Props) {
-  const { githubUser } = Props
+  console.log('render')
+  const { currentUser } = Props
+  const githubUser = JSON.parse(currentUser)
+  console.log(currentUser)
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
   const [userInfos, setUserInfos] = useState({})
@@ -315,17 +318,13 @@ export default function Home(Props) {
   )
 }
 
-export async function getServerSideProps(ctx) {
-  const cookies = nookies.get(ctx)
-  const token = cookies.USER_TOKEN
-  const { isAuthenticated } = await fetch('https://alurakut.vercel.app/api/auth', {
-    headers: {
-      Authorization: token,
-    },
-  })
-    .then((resposta) => resposta.json())
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context)
+  const currentUser = cookies.CURRENT_USER
 
-  if (!isAuthenticated) {
+  if (!currentUser) {
+    console.log('pagIndex - currentUser', currentUser)
+    nookies.destroy('CURRENT_USER')
     return {
       redirect: {
         destination: '/login',
@@ -334,10 +333,9 @@ export async function getServerSideProps(ctx) {
     }
   }
 
-  const { githubUser } = jwt.decode(token)
   return {
     props: {
-      githubUser,
+      currentUser,
     }, // will be passed to the page component as props
   }
 }

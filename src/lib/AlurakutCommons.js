@@ -63,7 +63,11 @@ export function AlurakutMenu({ githubUser }) {
           </div>
         </nav>
 
-        <button onClick={() => setMenuState(!isMenuOpen)}>
+        <button onClick={() => {
+          setMenuState(!isMenuOpen)
+          document.body.style.overflow = !isMenuOpen ? 'hidden' : 'auto'
+        }}
+        >
           {isMenuOpen && <img src={`${BASE_URL}/icons/menu-open.svg?v=${v}`} />}
           {!isMenuOpen && <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />}
         </button>
@@ -75,6 +79,9 @@ export function AlurakutMenu({ githubUser }) {
 AlurakutMenu.Wrapper = styled.header`
   width: 100%;
   background-color: #308BC5;
+  *::-webkit-scrollbar {
+    width: 88px;
+  }
 
   .alurakutMenuProfileSidebar {
     background: white;
@@ -118,10 +125,6 @@ AlurakutMenu.Wrapper = styled.header`
 
   .container {
     background-color: #308BC5;
-    position: ${({ isMenuOpen }) => (isMenuOpen ? 'fixed' : 'relative')};
-    top: 0;
-    width: 100%;
-
     padding: 7px 16px;
     max-width: 1110px;
     margin: auto;
