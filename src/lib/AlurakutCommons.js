@@ -8,9 +8,16 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import NextLink from 'next/link'
+import router from 'next/router'
+import { destroyCookie } from 'nookies'
 
 const BASE_URL = 'http://alurakut.vercel.app/'
 const v = '1'
+
+function handleLogout() {
+  destroyCookie(null, 'USER_TOKEN')
+  router.push('/login')
+}
 
 function Link({ href, children, ...props }) {
   return (
@@ -43,7 +50,12 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href="/logout">
+          <a
+            href="/"
+            onClick={handleLogout}
+            onKeyDown={handleLogout}
+            tabIndex={0}
+          >
             Sair
           </a>
           <div>
