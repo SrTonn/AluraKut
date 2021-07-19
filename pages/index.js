@@ -5,7 +5,11 @@ import jwt from 'jsonwebtoken'
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
+import {
+  AlurakutMenu,
+  AlurakutProfileSidebarMenuDefault,
+  OrkutNostalgicIconSet,
+} from '../src/lib/AlurakutCommons'
 
 function ProfileSidebar(propriedades) {
   const { githubUser } = propriedades
@@ -48,7 +52,7 @@ function ProfileRelationsBox({
           className="boxLink"
         >
 
-          {items[0].length}
+          {items[2]}
         </a>
         )
       </h2>
@@ -95,11 +99,29 @@ export default function Home(Props) {
   const { githubUser } = Props
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
+  const [userInfos, setUserInfos] = useState({})
   const [userStatus, setUserStatus] = useState({})
   const [communities, setCommunities] = useState([])
   const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
 
   useEffect(() => {
+    // fetch all user infos
+    fetch(`https://api.github.com/users/${githubUser}`)
+      .then((response) => {
+        if (response.ok) return response.json()
+
+        throw new Error(response.status)
+      })
+      .then((data) => {
+        setUserInfos({
+          followers: data.followers,
+          following: data.following,
+        })
+      })
+      .catch((err) => {
+        console.error(`Erro (${err}) ao carregar ${githubUser}`)
+      })
+
     // fetch followers
     fetch(`https://api.github.com/users/${githubUser}/followers`)
       .then((response) => {
@@ -153,7 +175,8 @@ export default function Home(Props) {
       }),
     }).then((response) => response.json())
       .then((data) => {
-        const newCommunities = data.data.allCommunities.sort(() => Math.random() - 0.5)
+        const newCommunities = data.data.allCommunities
+          .sort(() => Math.random() - 0.5)
         setCommunities([...newCommunities])
       })
 
@@ -254,7 +277,7 @@ export default function Home(Props) {
         >
           <ProfileRelationsBox
             title="Seguidores"
-            items={[followers, 'followers']}
+            items={[followers, 'followers', userInfos.followers]}
             githubUser={githubUser}
           />
 
@@ -282,7 +305,7 @@ export default function Home(Props) {
 
           <ProfileRelationsBox
             title="Seguindo"
-            items={[following, 'following']}
+            items={[following, 'following', userInfos.following]}
             githubUser={githubUser}
           />
 
