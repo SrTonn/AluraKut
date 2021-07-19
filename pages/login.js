@@ -16,29 +16,8 @@ export default function LoginScreen() {
       await loginWithGithub()
     }
 
-    console.log('pag login user =>', user)
-    console.log('pag login loginWithGithub =>', loginWithGithub)
     router.push('/')
   }
-  // function handleSubmitLogin(e) {
-  //   e.preventDefault()
-  //   fetch('https://alurakut.vercel.app/api/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ githubUser }),
-  //   })
-  //     .then(async (respostaDoServer) => {
-  //       const dadosDaResposta = await respostaDoServer.json()
-  //       const { token } = dadosDaResposta
-  //       nookies.set(null, 'USER_TOKEN', token, {
-  //         path: '/',
-  //         maxAge: 86400 * 7,
-  //       })
-  //       router.push('/')
-  //     })
-  // }
 
   return (
     <main style={{

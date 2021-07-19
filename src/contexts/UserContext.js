@@ -14,7 +14,6 @@ export function UserContextProvider(props) {
       const result = await auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider(),
       )
-      console.log('UserContext result => ', result)
       if (result.additionalUserInfo) {
         const { id, login, avatarUrl } = result.additionalUserInfo.profile
         if (!login || !avatarUrl) {
@@ -25,7 +24,6 @@ export function UserContextProvider(props) {
           username: login,
           avatarUrl,
         }
-        console.log('UserContext result.additionalUserInfo.profile =>', result.additionalUserInfo.profile)
 
         setUser(userInfos)
         nookies.set(null, 'CURRENT_USER', JSON.stringify(user), {

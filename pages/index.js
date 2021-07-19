@@ -96,10 +96,8 @@ function random(min, max) {
 }
 
 export default function Home(Props) {
-  console.log('render')
   const { currentUser } = Props
   const githubUser = JSON.parse(currentUser)
-  console.log(currentUser)
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
   const [userInfos, setUserInfos] = useState({})
@@ -323,7 +321,6 @@ export async function getServerSideProps(context) {
   const currentUser = cookies.CURRENT_USER
 
   if (!currentUser) {
-    console.log('pagIndex - currentUser', currentUser)
     nookies.destroy('CURRENT_USER')
     return {
       redirect: {
