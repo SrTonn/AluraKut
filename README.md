@@ -11,7 +11,7 @@
 > Projeto construido durante a Imersão React edição Alurakut da Alura! <br>
 > O Alurakut é um projeto inspirado em uma rede social [Orkut](https://pt.wikipedia.org/wiki/Orkut).
 
-## 💻 Teccnologias
+## 💻 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
@@ -47,7 +47,18 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
   ## Preencha os campos do arquivo .env.local com as suas credenciais das APIs
   ### [DATOCMS](https://dashboard.datocms.com/projects)
-  >Acesse sua página de admin do projeto e procure por "API TOKENS"
+  
+    Vá ao painel administrativo
+    Entre em "Models"
+    Crie um novo "models" chamado "Community"
+    Salve e em seguida abra-o
+    Clique em "add field" e crie 3 campos do tipo "text -> Single-line string" com os seguintes títulos:
+      1. title
+      2. Image URL
+      3. Creator Slug
+    Ainda dentro do Model Community, clique em "Edit Model" e copie o "Model ID"
+    Agora procure por "API TOKENS" na parte de "PERMISSIONS"
+    Copie os API tokens e cole-os dentro do arquivo .env.local
 
   ## Instale as dependências
   ```sh
