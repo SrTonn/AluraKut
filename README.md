@@ -65,6 +65,11 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 📺 Imagem
 
+### Tela de login
+![Captura da Web_20-7-2021_95320_alurakut-srtonn vercel app](https://user-images.githubusercontent.com/30580384/126331322-b01ee4a8-1c01-41fb-9a3f-8ce20b1ea22f.jpeg)
+
+### Tela principal
+![Captura da Web_20-7-2021_95346_alurakut-srtonn vercel app](https://user-images.githubusercontent.com/30580384/126331320-7f9f7497-1970-4520-94d9-24060f18bb82.jpeg)
 ## Autor
 
 👤 **SrTonn**
