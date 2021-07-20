@@ -1,4 +1,4 @@
-<h1 align="center">Bem-vindo(a) ao <p><img alt="License: MIT" src="https://alurakut.vercel.app/logo.svg" /></p></h1>
+<h1 align="center">Bem-vindo(a) ao <p><a href="https://alurakut-srtonn.vercel.app/"><img alt="License: MIT" src="https://alurakut.vercel.app/logo.svg" /></a></p></h1>
 <p align="center">
   <a href="https://github.com/srtonn/alurakut/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
