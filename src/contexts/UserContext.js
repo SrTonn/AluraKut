@@ -15,18 +15,20 @@ export function UserContextProvider(props) {
         new firebase.auth.GithubAuthProvider(),
       )
       if (result.additionalUserInfo) {
-        const { id, login, avatarUrl } = result.additionalUserInfo.profile
-        if (!login || !avatarUrl) {
+        // eslint-disable-next-line camelcase
+        const { id, login, avatar_url } = result.additionalUserInfo.profile
+        // eslint-disable-next-line camelcase
+        if (!login || !avatar_url) {
           throw new Error('Missing information from Github Account')
         }
-        const userInfos = {
+        const userInfo = {
           id,
           username: login,
-          avatarUrl,
+          avatarUrl: avatar_url,
         }
 
-        setUser(userInfos)
-        nookies.set(null, 'CURRENT_USER', JSON.stringify(user), {
+        setUser(userInfo)
+        nookies.set(null, 'CURRENT_USER', JSON.stringify(userInfo), {
           path: '/',
           maxAge: 86400 * 7,
         })
