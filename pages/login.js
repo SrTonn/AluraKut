@@ -1,31 +1,18 @@
-import React, { useState } from 'react'
-// Hook do NextJS
+import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
-import nookies from 'nookies'
+import { FaGithub } from 'react-icons/fa'
+import { UserContext } from '../src/contexts/UserContext'
 
 export default function LoginScreen() {
-  const [githubUser, setGithubUser] = useState('')
-  const [userInteraction, setUserInteraction] = useState(false)
   const router = useRouter()
 
-  function handleSubmitLogin(e) {
-    e.preventDefault()
-    fetch('https://alurakut.vercel.app/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ githubUser }),
-    })
-      .then(async (respostaDoServer) => {
-        const dadosDaResposta = await respostaDoServer.json()
-        const { token } = dadosDaResposta
-        nookies.set(null, 'USER_TOKEN', token, {
-          path: '/',
-          maxAge: 86400 * 7,
-        })
-        router.push('/')
-      })
+  const { user, loginWithGithub } = useContext(UserContext)
+  async function handleSubmitLogin() {
+    if (!user) {
+      await loginWithGithub()
+    }
+
+    router.push('/')
   }
 
   return (
@@ -58,29 +45,23 @@ export default function LoginScreen() {
         </section>
 
         <section className="formArea">
-          <form
-            className="box"
-            onSubmit={handleSubmitLogin}
-          >
+          <div className="box">
+
             <p>
               Acesse agora mesmo com seu usuário do
               {' '}
               <strong>GitHub</strong>
               !
             </p>
-            <input
-              placeholder="Digite o seu nome de usuário"
-              value={githubUser}
-              onChange={(e) => {
-                setGithubUser(e.target.value)
-                setUserInteraction(true)
-              }}
-            />
-            { userInteraction && githubUser.length === 0 ? 'Preencha o campo' : ''}
-            <button type="submit">
-              Login
+            <button
+              type="button"
+              onClick={handleSubmitLogin}
+            >
+              <FaGithub style={{ margin: '0 4px 2px 0' }} />
+              {' '}
+              Login com GitHub
             </button>
-          </form>
+          </div>
 
           <footer className="box">
             <p>
