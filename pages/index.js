@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import nookies from 'nookies'
 import jwt from 'jsonwebtoken'
@@ -102,8 +102,6 @@ export default function Home(Props) {
   const [userInfos, setUserInfos] = useState({})
   const [userStatus, setUserStatus] = useState({})
   const [communities, setCommunities] = useState([])
-  const formRef = useRef('')
-  const inputRefTitle = useRef('')
   const img404 = 'https://image.freepik.com/vetores-gratis/erro-404-nao-encontrado-efeito-de-falha_8024-4.jpg'
 
   useEffect(() => {
@@ -197,11 +195,11 @@ export default function Home(Props) {
 
   function handleCreateCommunity(e) {
     e.preventDefault()
-    const formData = new FormData(e.target)
+    const dadosDoForm = new FormData(e.target)
 
     const communityForm = {
-      title: formData.get('title'),
-      imageUrl: formData.get('image') === '' ? img404 : formData.get('image'),
+      title: dadosDoForm.get('title'),
+      imageUrl: dadosDoForm.get('image') === '' ? img404 : dadosDoForm.get('image'),
       creatorSlug: githubUser,
     }
 
@@ -212,10 +210,12 @@ export default function Home(Props) {
       },
       body: JSON.stringify(communityForm),
     })
-    const updatedCommunities = [communityForm, ...communities]
-    setCommunities(updatedCommunities)
-    formRef.current.reset()
-    inputRefTitle.current.focus()
+      .then(async (response) => {
+        const data = await response.json()
+        const community = data.record
+        const updatedCommunities = [...communities, community]
+        setCommunities(updatedCommunities)
+      })
   }
 
   return (
@@ -247,12 +247,10 @@ export default function Home(Props) {
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
             <form
-              ref={formRef}
               onSubmit={handleCreateCommunity}
             >
               <div>
                 <input
-                  ref={inputRefTitle}
                   placeholder="Qual vai ser o nome da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade?"
