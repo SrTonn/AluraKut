@@ -462,9 +462,13 @@ const AlurakutLoginScreen = css`
           margin-bottom: 16px;
         }
         button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           width: 100%;
-          display: block;
           border: 0;
+          margin-top: 8px;
           padding: 12px;
           border-radius: var(--commonRadius);
           background-color: var(--colorPrimary);

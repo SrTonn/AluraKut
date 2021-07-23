@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
+import { FaGithub } from 'react-icons/fa'
 import { UserContext } from '../src/contexts/UserContext'
 
 export default function LoginScreen() {
@@ -56,7 +57,9 @@ export default function LoginScreen() {
               type="button"
               onClick={handleSubmitLogin}
             >
-              Login com github
+              <FaGithub style={{ margin: '0 4px 2px 0' }} />
+              {' '}
+              Login com GitHub
             </button>
           </div>
 
