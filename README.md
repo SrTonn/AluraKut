@@ -1,84 +1,99 @@
-# Example app with styled-components
+<h1 align="center">Bem-vindo(a) ao <p><a href="https://alurakut-srtonn.vercel.app/"><img alt="License: MIT" src="https://alurakut.vercel.app/logo.svg" /></a></p></h1>
+<p align="center">
+  <a href="https://github.com/srtonn/alurakut/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+  <a href="https://twitter.com/SrTonn" target="_blank">
+    <img alt="Twitter: SrTonn" src="https://img.shields.io/twitter/follow/SrTonn.svg?style=social" />
+  </a>
+</p>
 
-This example features how you use a different styling solution than [styled-jsx](https://github.com/vercel/styled-jsx) that also supports universal styles. That means we can serve the required styles for the first render within the HTML and then load the rest in the client. In this case we are using [styled-components](https://github.com/styled-components/styled-components).
+> Projeto construido durante a Imersão React edição Alurakut da Alura! <br>
+> O Alurakut é um projeto inspirado em uma rede social [Orkut](https://pt.wikipedia.org/wiki/Orkut).
 
-For this purpose we are extending the `<Document />` and injecting the server side rendered styles into the `<head>`, and also adding the `babel-plugin-styled-components` (which is required for server side rendering). Additionally we set up a global [theme](https://www.styled-components.com/docs/advanced#theming) for styled-components using NextJS custom [`<App>`](https://nextjs.org/docs/advanced-features/custom-app) component.
+## 💻 Tecnologias
 
-## Preview
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+- [Nextjs](https://nextjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [DATOCMS](https://www.datocms.com/)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-styled-components)
+# 🏡 [Página do projeto](https://alurakut-srtonn.vercel.app/)
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-styled-components&project-name=with-styled-components&repository-name=with-styled-components)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-styled-components with-styled-components-app
-# or
-yarn create next-app --example with-styled-components with-styled-components-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-### Try it on CodeSandbox
-
-[Open this example on CodeSandbox](https://codesandbox.io/s/github/vercel/next.js/tree/canary/examples/with-styled-components)
-
-### Notes
-
-When wrapping a [Link](https://nextjs.org/docs/api-reference/next/link) from `next/link` within a styled-component, the [as](https://styled-components.com/docs/api#as-polymorphic-prop) prop provided by `styled` will collide with the Link's `as` prop and cause styled-components to throw an `Invalid tag` error. To avoid this, you can either use the recommended [forwardedAs](https://styled-components.com/docs/api#forwardedas-prop) prop from styled-components or use a different named prop to pass to a `styled` Link.
+#### Acesse o deploy do projeto ⤴️
+#### ou
+#### Rode o projeto em sua máquina ⤵️
 
 <details>
-<summary>Click to expand workaround example</summary>
-<br />
+  <summary> <i>(Clique aqui para visualizar o passo a passo)</i> </summary><br/>
 
-**components/StyledLink.js**
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/srtonn/alurakut" />
 
-```javascript
-import Link from 'next/link'
-import styled from 'styled-components'
+  ## Clone o repositório
+  ```sh
+    git clone git@github.com:SrTonn/Alurakut.git
+  ```
 
-const StyledLink = ({ as, children, className, href }) => (
-  <Link href={href} as={as} passHref>
-    <a className={className}>{children}</a>
-  </Link>
-)
+  ## Acesse a pasta do projeto
+  ```bash
+    cd alurakut
+  ```
 
-export default styled(StyledLink)`
-  color: #0075e0;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
+  ## Renomeie o arquivo .env.example para .env.local
+  ```sh
+    mv .env.example .env.local
+  ```
 
-  &:hover {
-    color: #40a9ff;
-  }
+  ## Preencha os campos do arquivo .env.local com as suas credenciais das APIs
+  ### [DATOCMS](https://dashboard.datocms.com/projects)
+  
+    Vá ao painel administrativo
+    Entre em "Models"
+    Crie um novo "models" chamado "Community"
+    Salve e em seguida abra-o
+    Clique em "add field" e crie 3 campos do tipo "text -> Single-line string" com os seguintes títulos:
+      1. title
+      2. Image URL
+      3. Creator Slug
+    Ainda dentro do Model Community, clique em "Edit Model" e copie o "Model ID"
+    Agora procure por "API TOKENS" na parte de "PERMISSIONS"
+    Copie os API tokens e cole-os dentro do arquivo .env.local
 
-  &:focus {
-    color: #40a9ff;
-    outline: none;
-    border: 0;
-  }
-`
-```
+  ## Instale as dependências
+  ```sh
+  yarn install
+  ```
 
-**pages/index.js**
+  ## Rode o projeto
 
-```javascript
-import StyledLink from '../components/StyledLink'
+  ```sh
+  yarn dev
+  ```
 
-export default () => (
-  <StyledLink href="/post/[pid]" forwardedAs="/post/abc">
-    First post
-  </StyledLink>
-)
-```
+  Acesse [http://localhost:3000](http://localhost:3000) em seu navegador para ver o resultado.
+</details><br />
 
-</details>
+## 📺 Imagem
+
+### Tela de login
+![Captura da Web_20-7-2021_95320_alurakut-srtonn vercel app](https://user-images.githubusercontent.com/30580384/126331322-b01ee4a8-1c01-41fb-9a3f-8ce20b1ea22f.jpeg)
+
+### Tela principal
+![Captura da Web_20-7-2021_95346_alurakut-srtonn vercel app](https://user-images.githubusercontent.com/30580384/126331320-7f9f7497-1970-4520-94d9-24060f18bb82.jpeg)
+## Autor
+
+👤 **SrTonn**
+
+* Website: https://github.com/SrTonn
+* Twitter: [@SrTonn](https://twitter.com/SrTonn)
+* Github: [@SrTonn](https://github.com/SrTonn)
+* LinkedIn: [wellingtonrodrigues](https://linkedin.com/in/wellingtonrodrigues)
+
+## 📝 Licença
+
+Copyright © 2021 [SrTonn](https://github.com/SrTonn).<br />
+This project is [MIT](https://github.com/srtonn/alurakut/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
