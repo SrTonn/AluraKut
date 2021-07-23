@@ -38,7 +38,6 @@ export function UserContextProvider(props) {
     }
   }
 
-  // console.log('lool', result)
   return (
     <UserContext.Provider value={{ user, setUser, loginWithGithub }}>
       {children}

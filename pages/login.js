@@ -1,17 +1,12 @@
-import React/* , { useState, useContext } */ from 'react'
-// import nookies from 'nookies'
+import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { useUser } from '../src/hooks/userUser'
+import { UserContext } from '../src/contexts/UserContext'
 
 export default function LoginScreen() {
-  // const [githubUser, setGithubUser] = useState('')
-  // const [userInteraction, setUserInteraction] = useState(false)
   const router = useRouter()
 
-  const { user, loginWithGithub } = useUser()
-
+  const { user, loginWithGithub } = useContext(UserContext)
   async function handleSubmitLogin() {
-    // e.preventDefault()
     if (!user) {
       await loginWithGithub()
     }

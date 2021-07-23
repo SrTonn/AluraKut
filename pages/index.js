@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import nookies from 'nookies'
-// import jwt from 'jsonwebtoken'
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations'
@@ -97,7 +96,8 @@ function random(min, max) {
 
 export default function Home(Props) {
   const { currentUser } = Props
-  const githubUser = JSON.parse(currentUser)
+  const { username } = JSON.parse(currentUser)
+  const githubUser = username
   const [followers, setFollowers] = useState([])
   const [following, setFollowing] = useState([])
   const [userInfos, setUserInfos] = useState({})
@@ -153,8 +153,8 @@ export default function Home(Props) {
         console.error(`Erro (${err}) ao carregar ${githubUser}/following`)
       })
 
-    const API_DATOCMS_TOKEN = process.env.NEXT_PUBLIC_API_DATOCMS_TOKEN
     // API GraphQL DATOCMS
+    const API_DATOCMS_TOKEN = process.env.NEXT_PUBLIC_API_DATOCMS_TOKEN_READ
     fetch('https://graphql.datocms.com/', {
       method: 'POST',
       headers: {

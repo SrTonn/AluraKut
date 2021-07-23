@@ -15,7 +15,7 @@ const BASE_URL = 'http://alurakut.vercel.app/'
 const v = '1'
 
 function handleLogout() {
-  destroyCookie(null, 'USER_TOKEN')
+  destroyCookie(null, 'CURRENT_USER')
   router.push('/login')
 }
 
